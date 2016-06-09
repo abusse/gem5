@@ -647,6 +647,7 @@ if main['GCC'] + main['CLANG'] > 1:
 # Set up default C++ compiler flags
 if main['GCC'] or main['CLANG']:
     # As gcc and clang share many flags, do the common parts here
+    main.Append(CCFLAGS=['-march=native'])
     main.Append(CCFLAGS=['-pipe'])
     main.Append(CCFLAGS=['-fno-strict-aliasing'])
     # Enable -Wall and -Wextra and then disable the few warnings that
