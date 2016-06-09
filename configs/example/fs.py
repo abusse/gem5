@@ -138,7 +138,8 @@ def build_test_system(np):
     test_sys.init_param = options.init_param
 
     # For now, assign all the CPUs to the same clock domain
-    test_sys.cpu = [TestCPUClass(clk_domain=test_sys.cpu_clk_domain, cpu_id=i)
+    test_sys.cpu = [TestCPUClass(clk_domain=test_sys.cpu_clk_domain, cpu_id=i,
+                                 function_trace=options.enable_trace)
                     for i in xrange(np)]
 
     if is_kvm_cpu(TestCPUClass) or is_kvm_cpu(FutureClass):

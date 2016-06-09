@@ -351,3 +351,6 @@ def addFSOptions(parser):
     parser.add_option("--command-line-file", action="store",
                       default=None, type="string",
                       help="File with a template for the kernel command line")
+
+    parser.add_option("--enable-trace", action="store_true",
+                      help="enable function tracing")
