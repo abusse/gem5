@@ -298,8 +298,6 @@ def makeArmSystem(mem_mode, machine_type, num_cpus=1, mdesc=None,
         # EOT character on UART will end the simulation
         self.realview.uart.end_on_eot = True
     else:
-        if machine_type in default_kernels:
-            self.kernel = binary(default_kernels[machine_type])
 
         if dtb_filename:
             self.dtb_filename = binary(dtb_filename)
@@ -524,10 +522,8 @@ def makeX86System(mem_mode, numCPUs=1, mdesc=None, self=None, Ruby=False):
 
     # Disks
     disk0 = CowIdeDisk(driveID='master')
-    disk2 = CowIdeDisk(driveID='master')
     disk0.childImage(mdesc.disk())
-    disk2.childImage(disk('linux-bigswap2.img'))
-    self.pc.south_bridge.ide.disks = [disk0, disk2]
+    self.pc.south_bridge.ide.disks = [disk0]
 
     # Add in a Bios information structure.
     structures = [X86SMBiosBiosInformation()]
@@ -642,7 +638,7 @@ def makeLinuxX86System(mem_mode, numCPUs=1, mdesc=None, Ruby=False,
 
     # Command line
     if not cmdline:
-        cmdline = 'earlyprintk=ttyS0 console=ttyS0 lpj=7999923 root=/dev/hda1'
+        cmdline = 'earlyprintk=ttyS0 console=ttyS0 lpj=7999923 root=/dev/sda1'
     self.boot_osflags = fillInCmdline(mdesc, cmdline)
     self.kernel = binary('x86_64-vmlinux-2.6.22.9')
     return self
